@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RX Game Shops - Premium Game Keys</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #9d00ff;
+            --accent: #00ffff;
+            --text: #ffffff;
+            --card-bg: rgba(0, 0, 0, 0.7);
+            --border-color: #9d00ff;
+            --success: #00ff00;
+            --selected: #ff00ff;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: #0a0a0a;
+            color: var(--text);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 20%);
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .logo-subtitle {
+            text-align: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .crystal-animation {
+            position: absolute;
+            width: 100%;
+            height: 300px;
+            top: 120px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .crystal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .category-box {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(157, 0, 255, 0.3);
+            border-color: var(--accent);
+        }
+
+        .category-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(157, 0, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .category-box:hover::before {
+            left: 100%;
+        }
+
+        .category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+
+        .category-title i {
+            margin-right: 10px;
+        }
+
+        .game-options {
+            display: none;
+            margin-top: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .platform-selector {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .platform-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 5px;
+            margin-right: 0.5rem;
+        }
+
+        .platform-btn.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .pricing-option {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(157, 0, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-option:hover {
+            border-color: var(--accent);
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .price-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .duration {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .validity-section {
+            margin: 1.5rem 0;
+        }
+
+        .validity-label {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .validity-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .validity-option {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .validity-option:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .validity-option.selected {
+            background: linear-gradient(135deg, var(--selected), #9d00ff);
+            border-color: var(--selected);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .valid-container {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(157, 0, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(157, 0, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(157, 0, 255, 0); }
+        }
+
+        .valid-container.show {
+            display: block;
+        }
+
+        .valid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .valid-title {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .valid-value {
+            font-weight: 700;
+            color: var(--selected);
+            font-size: 1.2rem;
+        }
+
+        .valid-details {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .payment-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(to right, var(--secondary), #6a00cc);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .payment-btn:hover {
+            background: linear-gradient(to right, #6a00cc, var(--secondary));
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(157, 0, 255, 0.4);
+        }
+
+        .payment-methods {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .payment-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .payment-option {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(157, 0, 255, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .copy-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent);
+        }
+
+        .payment-details {
+            margin-top: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, var(--secondary), #6a00cc);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to right, #6a00cc, var(--secondary));
+        }
+
+        .notice {
+            background-color: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            color: #ff9999;
+        }
+
+        .channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .channel-box {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .channel-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(157, 0, 255, 0.3);
+        }
+
+        .channel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .channel-btn {
+            background: linear-gradient(to right, var(--secondary), #6a00cc);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .channel-btn:hover {
+            background: linear-gradient(to right, #6a00cc, var(--secondary));
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .success-message {
+            background-color: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .validity-selector {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Crystal Animation -->
+    <div class="crystal-animation" id="crystalContainer"></div>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo">RX GAME SHOPS</div>
+        </div>
+        <div class="logo-subtitle">PREMIUM GAME KEYS & ACCOUNTS</div>
+    </header>
+
+    <div class="container">
+        <!-- Categories Section -->
+        <div class="categories">
+            <!-- Arena Breakout -->
+            <div class="category-box" onclick="toggleGameOptions('arena-breakout')">
+                <div class="category-title">
+                    <i class="fas fa-crosshairs"></i> ARENA BREAKOUT
+                </div>
+                <p>Get premium keys for Arena Breakout with multiple validity options.</p>
+                
+                <div class="game-options" id="arena-breakout-options">
+                    <div class="platform-selector">
+                        <button class="platform-btn active" onclick="selectPlatform('arena-breakout', 'android')">Android</button>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">6 HOURS</span>
+                            <span class="price">3$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">1 DAY</span>
+                            <span class="price">6$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">7 DAYS</span>
+                            <span class="price">20$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">30 DAYS</span>
+                            <span class="price">35$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="validity-section">
+                        <span class="validity-label">SELECT VALIDITY:</span>
+                        <div class="validity-selector">
+                            <button class="validity-option" data-validity="6H" data-price="3" onclick="selectValidity(this, 'arena-breakout')">6H</button>
+                            <button class="validity-option" data-validity="1D" data-price="6" onclick="selectValidity(this, 'arena-breakout')">1D</button>
+                            <button class="validity-option" data-validity="7D" data-price="20" onclick="selectValidity(this, 'arena-breakout')">7D</button>
+                            <button class="validity-option" data-validity="30D" data-price="35" onclick="selectValidity(this, 'arena-breakout')">30D</button>
+                        </div>
+                        
+                        <!-- Valid Container for Arena Breakout -->
+                        <div class="valid-container" id="arena-breakout-valid">
+                            <div class="valid-header">
+                                <div class="valid-title">SELECTED VALIDITY:</div>
+                                <div class="valid-value" id="arena-breakout-valid-value">6H</div>
+                            </div>
+                            <div class="valid-details">
+                                <div><strong>Game:</strong> Arena Breakout</div>
+                                <div><strong>Price:</strong> $<span id="arena-breakout-valid-price">3</span></div>
+                                <div><strong>Platform:</strong> Android</div>
+                                <div><strong>Key Type:</strong> Premium Access Key</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="payment-btn" onclick="showPaymentMethods('Arena Breakout')">
+                        <i class="fas fa-shopping-cart"></i> BUY NOW - PAYMENT METHODS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Delta Force -->
+            <div class="category-box" onclick="toggleGameOptions('delta-force')">
+                <div class="category-title">
+                    <i class="fas fa-military-symbol"></i> DELTA FORCE
+                </div>
+                <p>VIP keys for Delta Force with extended validity options.</p>
+                
+                <div class="game-options" id="delta-force-options">
+                    <div class="platform-selector">
+                        <button class="platform-btn active" onclick="selectPlatform('delta-force', 'android')">Android</button>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">1 DAY</span>
+                            <span class="price">3$</span>
+                        </div>
+                        <span style="color: var(--success); font-size: 0.9rem;">VIP ✅</span>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">3 DAYS</span>
+                            <span class="price">6$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">7 DAYS</span>
+                            <span class="price">10$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">30 DAYS</span>
+                            <span class="price">20$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-option">
+                        <div class="price-header">
+                            <span class="duration">60 DAYS</span>
+                            <span class="price">30$</span>
+                        </div>
+                    </div>
+                    
+                    <div class="validity-section">
+                        <span class="validity-label">SELECT VALIDITY:</span>
+                        <div class="validity-selector">
+                            <button class="validity-option" data-validity="1D" data-price="3" onclick="selectValidity(this, 'delta-force')">1D</button>
+                            <button class="validity-option" data-validity="3D" data-price="6" onclick="selectValidity(this, 'delta-force')">3D</button>
+                            <button class="validity-option" data-validity="7D" data-price="10" onclick="selectValidity(this, 'delta-force')">7D</button>
+                            <button class="validity-option" data-validity="30D" data-price="20" onclick="selectValidity(this, 'delta-force')">30D</button>
+                            <button class="validity-option" data-validity="60D" data-price="30" onclick="selectValidity(this, 'delta-force')">60D</button>
+                        </div>
+                        
+                        <!-- Valid Container for Delta Force -->
+                        <div class="valid-container" id="delta-force-valid">
+                            <div class="valid-header">
+                                <div class="valid-title">SELECTED VALIDITY:</div>
+                                <div class="valid-value" id="delta-force-valid-value">1D</div>
+                            </div>
+                            <div class="valid-details">
+                                <div><strong>Game:</strong> Delta Force</div>
+                                <div><strong>Price:</strong> $<span id="delta-force-valid-price">3</span></div>
+                                <div><strong>Platform:</strong> Android</div>
+                                <div><strong>Key Type:</strong> VIP Access Key ✅</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="payment-btn" onclick="showPaymentMethods('Delta Force')">
+                        <i class="fas fa-shopping-cart"></i> BUY NOW - PAYMENT METHODS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cross Fire Legend -->
+            <div class="category-box" onclick="toggleGameOptions('cross-fire')">
+                <div class="category-title">
+                    <i class="fas fa-fire"></i> CROSS FIRE LEGEND
+                </div>
+                <p>Android & iOS versions available with global support.</p>
+                
+                <div class="game-options" id="cross-fire-options">
+                    <div class="platform-selector">
+                        <button class="platform-btn active" onclick="selectPlatform('cross-fire', 'android')">Android</button>
+                        <button class="platform-btn" onclick="selectPlatform('cross-fire', 'ios')">iOS</button>
+                    </div>
+                    
+                    <!-- Android Pricing -->
+                    <div id="cross-fire-android">
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">1 DAY (VNG)</span>
+                                <span class="price">3$</span>
+                            </div>
+                            <span style="color: var(--success); font-size: 0.9rem;">✅</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">3 DAYS (VNG)</span>
+                                <span class="price">6$</span>
+                            </div>
+                            <span style="color: var(--success); font-size: 0.9rem;">✅</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">7 DAYS (VNG+Global)</span>
+                                <span class="price">10$</span>
+                            </div>
+                            <span style="color: var(--success); font-size: 0.9rem;">Best Value! ✅</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">30 DAYS (VNG+Global)</span>
+                                <span class="price">20$</span>
+                            </div>
+                            <span style="color: var(--success); font-size: 0.9rem;">Best choice ✅</span>
+                        </div>
+                        
+                        <div class="validity-section">
+                            <span class="validity-label">SELECT VALIDITY:</span>
+                            <div class="validity-selector">
+                                <button class="validity-option" data-validity="1D" data-price="3" onclick="selectValidity(this, 'cross-fire')">1D</button>
+                                <button class="validity-option" data-validity="3D" data-price="6" onclick="selectValidity(this, 'cross-fire')">3D</button>
+                                <button class="validity-option" data-validity="7D" data-price="10" onclick="selectValidity(this, 'cross-fire')">7D</button>
+                                <button class="validity-option" data-validity="30D" data-price="20" onclick="selectValidity(this, 'cross-fire')">30D</button>
+                            </div>
+                            
+                            <!-- Valid Container for Cross Fire Android -->
+                            <div class="valid-container" id="cross-fire-android-valid">
+                                <div class="valid-header">
+                                    <div class="valid-title">SELECTED VALIDITY:</div>
+                                    <div class="valid-value" id="cross-fire-android-valid-value">1D</div>
+                                </div>
+                                <div class="valid-details">
+                                    <div><strong>Game:</strong> Cross Fire Legend</div>
+                                    <div><strong>Price:</strong> $<span id="cross-fire-android-valid-price">3</span></div>
+                                    <div><strong>Platform:</strong> Android</div>
+                                    <div><strong>Region:</strong> VNG (Vietnam)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- iOS Pricing -->
+                    <div id="cross-fire-ios" style="display: none;">
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">1 DAY</span>
+                                <span class="price">5 USDT</span>
+                            </div>
+                            <span style="color: var(--accent); font-size: 0.9rem;">🛜</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">3 DAYS</span>
+                                <span class="price">10 USDT</span>
+                            </div>
+                            <span style="color: var(--success); font-size: 0.9rem;">✅</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">WEEKLY</span>
+                                <span class="price">15 USDT</span>
+                            </div>
+                            <span style="color: var(--accent); font-size: 0.9rem;">🛜</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">MONTHLY</span>
+                                <span class="price">30 USDT</span>
+                            </div>
+                            <span style="color: var(--success); font-size: 0.9rem;">✅</span>
+                        </div>
+                        
+                        <div class="validity-section">
+                            <span class="validity-label">SELECT VALIDITY:</span>
+                            <div class="validity-selector">
+                                <button class="validity-option" data-validity="1D" data-price="5" onclick="selectValidity(this, 'cross-fire-ios')">1D</button>
+                                <button class="validity-option" data-validity="3D" data-price="10" onclick="selectValidity(this, 'cross-fire-ios')">3D</button>
+                                <button class="validity-option" data-validity="7D" data-price="15" onclick="selectValidity(this, 'cross-fire-ios')">7D</button>
+                                <button class="validity-option" data-validity="30D" data-price="30" onclick="selectValidity(this, 'cross-fire-ios')">30D</button>
+                            </div>
+                            
+                            <!-- Valid Container for Cross Fire iOS -->
+                            <div class="valid-container" id="cross-fire-ios-valid">
+                                <div class="valid-header">
+                                    <div class="valid-title">SELECTED VALIDITY:</div>
+                                    <div class="valid-value" id="cross-fire-ios-valid-value">1D</div>
+                                </div>
+                                <div class="valid-details">
+                                    <div><strong>Game:</strong> Cross Fire Legend</div>
+                                    <div><strong>Price:</strong> <span id="cross-fire-ios-valid-price">5</span> USDT</div>
+                                    <div><strong>Platform:</strong> iOS Cloud Version</div>
+                                    <div><strong>Region:</strong> GL/VNG (Global + Vietnam)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="payment-btn" onclick="showPaymentMethods('Cross Fire Legend')">
+                        <i class="fas fa-shopping-cart"></i> BUY NOW - PAYMENT METHODS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Call of Duty Mobile -->
+            <div class="category-box" onclick="toggleGameOptions('cod-mobile')">
+                <div class="category-title">
+                    <i class="fas fa-gamepad"></i> CALL OF DUTY MOBILE
+                </div>
+                <p>Exclusive pricelist for Android & iOS versions.</p>
+                
+                <div class="game-options" id="cod-mobile-options">
+                    <div class="platform-selector">
+                        <button class="platform-btn active" onclick="selectPlatform('cod-mobile', 'android')">Android</button>
+                        <button class="platform-btn" onclick="selectPlatform('cod-mobile', 'ios')">iOS</button>
+                    </div>
+                    
+                    <!-- Android Pricing -->
+                    <div id="cod-mobile-android">
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">3 DAYS</span>
+                                <span class="price">5$</span>
+                            </div>
+                            <span style="color: var(--accent); font-size: 0.9rem;">🔜</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">7 DAYS</span>
+                                <span class="price">10$</span>
+                            </div>
+                            <span style="color: var(--accent); font-size: 0.9rem;">🗓</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">30 DAYS</span>
+                                <span class="price">20$</span>
+                            </div>
+                            <span style="color: var(--accent); font-size: 0.9rem;">💎</span>
+                        </div>
+                        
+                        <div class="validity-section">
+                            <span class="validity-label">SELECT VALIDITY:</span>
+                            <div class="validity-selector">
+                                <button class="validity-option" data-validity="3D" data-price="5" onclick="selectValidity(this, 'cod-mobile')">3D</button>
+                                <button class="validity-option" data-validity="7D" data-price="10" onclick="selectValidity(this, 'cod-mobile')">7D</button>
+                                <button class="validity-option" data-validity="30D" data-price="20" onclick="selectValidity(this, 'cod-mobile')">30D</button>
+                            </div>
+                            
+                            <!-- Valid Container for COD Mobile Android -->
+                            <div class="valid-container" id="cod-mobile-android-valid">
+                                <div class="valid-header">
+                                    <div class="valid-title">SELECTED VALIDITY:</div>
+                                    <div class="valid-value" id="cod-mobile-android-valid-value">3D</div>
+                                </div>
+                                <div class="valid-details">
+                                    <div><strong>Game:</strong> Call of Duty Mobile</div>
+                                    <div><strong>Price:</strong> $<span id="cod-mobile-android-valid-price">5</span></div>
+                                    <div><strong>Platform:</strong> Android</div>
+                                    <div><strong>Type:</strong> Exclusive Pricelist</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- iOS Pricing -->
+                    <div id="cod-mobile-ios" style="display: none;">
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">7 DAYS</span>
+                                <span class="price">15$</span>
+                            </div>
+                            <span style="color: var(--accent); font-size: 0.9rem;">🗓</span>
+                        </div>
+                        
+                        <div class="pricing-option">
+                            <div class="price-header">
+                                <span class="duration">30 DAYS</span>
+                                <span class="price">30$</span>
+                            </div>
+                            <span style="color: var(--accent); font-size: 0.9rem;">💎</span>
+                        </div>
+                        
+                        <div class="validity-section">
+                            <span class="validity-label">SELECT VALIDITY:</span>
+                            <div class="validity-selector">
+                                <button class="validity-option" data-validity="7D" data-price="15" onclick="selectValidity(this, 'cod-mobile-ios')">7D</button>
+                                <button class="validity-option" data-validity="30D" data-price="30" onclick="selectValidity(this, 'cod-mobile-ios')">30D</button>
+                            </div>
+                            
+                            <!-- Valid Container for COD Mobile iOS -->
+                            <div class="valid-container" id="cod-mobile-ios-valid">
+                                <div class="valid-header">
+                                    <div class="valid-title">SELECTED VALIDITY:</div>
+                                    <div class="valid-value" id="cod-mobile-ios-valid-value">7D</div>
+                                </div>
+                                <div class="valid-details">
+                                    <div><strong>Game:</strong> Call of Duty Mobile</div>
+                                    <div><strong>Price:</strong> $<span id="cod-mobile-ios-valid-price">15</span></div>
+                                    <div><strong>Platform:</strong> iOS Cloud Version</div>
+                                    <div><strong>Type:</strong> Cloud iOS Pricelist</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="payment-btn" onclick="showPaymentMethods('Call of Duty Mobile')">
+                        <i class="fas fa-shopping-cart"></i> BUY NOW - PAYMENT METHODS
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Methods Section -->
+        <div class="payment-methods" id="payment-methods">
+            <div class="payment-title">PAYMENT METHODS</div>
+            
+            <div class="notice">
+                <strong>NOTICE:</strong> Send Extra Charges When You Pay 💰 1$-2$ Extra Charges 20%
+            </div>
+            
+            <!-- PayPal -->
+            <div class="payment-option">
+                <div class="payment-header">
+                    <div class="payment-name">PAYPAL</div>
+                    <button class="copy-btn" onclick="copyToClipboard('hasibulmahir@gmail.com')">COPY</button>
+                </div>
+                <div class="payment-details">
+                    <p><strong>Email:</strong> hasibulmahir@gmail.com</p>
+                    
+                    <div class="input-group">
+                        <label for="paypal-amount">AMOUNT ($)</label>
+                        <input type="text" id="paypal-amount" placeholder="Enter amount">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="paypal-order-id">ORDER ID</label>
+                        <input type="text" id="paypal-order-id" placeholder="Enter order ID">
+                    </div>
+                    
+                    <button class="submit-btn" onclick="submitPayment('PayPal')">SUBMIT PAYMENT DETAILS</button>
+                    
+                    <div class="success-message" id="paypal-success">
+                        Details submitted! Redirecting to Telegram/WhatsApp...
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a class="channel-btn" href="https://t.me/Nenorx" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                        <a class="channel-btn" href="https://wa.me/message/VKDTGP2ICQROM1" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Binance -->
+            <div class="payment-option">
+                <div class="payment-header">
+                    <div class="payment-name">BINANCE</div>
+                    <button class="copy-btn" onclick="copyToClipboard('967527626')">COPY ID</button>
+                </div>
+                <div class="payment-details">
+                    <p><strong>Binance ID:</strong> 967527626</p>
+                    
+                    <div class="input-group">
+                        <label for="binance-amount">AMOUNT</label>
+                        <input type="text" id="binance-amount" placeholder="Enter amount">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="binance-order-id">ORDER ID</label>
+                        <input type="text" id="binance-order-id" placeholder="Enter order ID">
+                    </div>
+                    
+                    <button class="submit-btn" onclick="submitPayment('Binance')">SUBMIT PAYMENT DETAILS</button>
+                    
+                    <div class="success-message" id="binance-success">
+                        Details submitted! Redirecting to Telegram/WhatsApp...
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a class="channel-btn" href="https://t.me/Nenorx" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                        <a class="channel-btn" href="https://wa.me/message/VKDTGP2ICQROM1" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tron TRC-20 -->
+            <div class="payment-option">
+                <div class="payment-header">
+                    <div class="payment-name">TRON TRC-20</div>
+                    <button class="copy-btn" onclick="copyToClipboard('TKExq6rYw9QadE15isdY4yqaGp7LjdQ6XC')">COPY ADDRESS</button>
+                </div>
+                <div class="payment-details">
+                    <p><strong>Address:</strong> TKExq6rYw9QadE15isdY4yqaGp7LjdQ6XC</p>
+                    
+                    <div class="input-group">
+                        <label for="tron-amount">AMOUNT (USDT)</label>
+                        <input type="text" id="tron-amount" placeholder="Enter amount">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="tron-order-id">ORDER ID</label>
+                        <input type="text" id="tron-order-id" placeholder="Enter order ID">
+                    </div>
+                    
+                    <button class="submit-btn" onclick="submitPayment('Tron')">SUBMIT PAYMENT DETAILS</button>
+                    
+                    <div class="success-message" id="tron-success">
+                        Details submitted! Redirecting to Telegram/WhatsApp...
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a class="channel-btn" href="https://t.me/Nenorx" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                        <a class="channel-btn" href="https://wa.me/message/VKDTGP2ICQROM1" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ton Coin -->
+            <div class="payment-option">
+                <div class="payment-header">
+                    <div class="payment-name">TON COIN</div>
+                    <button class="copy-btn" onclick="copyToClipboard('UQBx2FTkI22hYi5NKLXllpOWPXhANN4NmjBoLKRhW3a0bkb5')">COPY ADDRESS</button>
+                </div>
+                <div class="payment-details">
+                    <p><strong>Address:</strong> UQBx2FTkI22hYi5NKLXllpOWPXhANN4NmjBoLKRhW3a0bkb5</p>
+                    
+                    <div class="input-group">
+                        <label for="ton-amount">AMOUNT (TON)</label>
+                        <input type="text" id="ton-amount" placeholder="Enter amount">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="ton-order-id">ORDER ID</label>
+                        <input type="text" id="ton-order-id" placeholder="Enter order ID">
+                    </div>
+                    
+                    <button class="submit-btn" onclick="submitPayment('Ton')">SUBMIT PAYMENT DETAILS</button>
+                    
+                    <div class="success-message" id="ton-success">
+                        Details submitted! Redirecting to Telegram/WhatsApp...
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a class="channel-btn" href="https://t.me/Nenorx" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                        <a class="channel-btn" href="https://wa.me/message/VKDTGP2ICQROM1" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Binance Gift Card -->
+            <div class="payment-option">
+                <div class="payment-header">
+                    <div class="payment-name">BINANCE GIFT CARD</div>
+                </div>
+                <div class="payment-details">
+                    <p><strong>16 DIGIT BINANCE GIFT CARD CODE SEND</strong></p>
+                    
+                    <div class="notice">
+                        <strong>Gift card buy shops:</strong><br>
+                        Buy Binance USDT Gift Cards Instantly. Purchase easily with PayPal, GCash, Card, or Local Currency — fast and secure!<br><br>
+                        🛍️ Available at: Driffle.com, Eneba.com, G2A.com, OffGamers.com, Coingate.com, Ar-Pay.com, Baxity.com, BuySellVouchers.com<br><br>
+                        🎁 Buy your Binance USDT Gift Card now — safe, global, and instant!<br><br>
+                        ✅ Remember you need to check all website for your country payment methods and low proces gift cards.
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="giftcard-code">GIFT CARD CODE (16 DIGIT)</label>
+                        <input type="text" id="giftcard-code" placeholder="Enter 16 digit code">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="giftcard-order-id">ORDER ID</label>
+                        <input type="text" id="giftcard-order-id" placeholder="Enter order ID">
+                    </div>
+                    
+                    <button class="submit-btn" onclick="submitPayment('GiftCard')">SUBMIT PAYMENT DETAILS</button>
+                    
+                    <div class="success-message" id="giftcard-success">
+                        Details submitted! Redirecting to Telegram/WhatsApp...
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a class="channel-btn" href="https://t.me/Nenorx" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                        <a class="channel-btn" href="https://wa.me/message/VKDTGP2ICQROM1" target="_blank" style="flex: 1; text-align: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Channels Section -->
+        <div class="channels">
+            <div class="channel-box">
+                <div class="channel-title">ARENA BREAKOUT CHANNEL</div>
+                <p>Join our Arena Breakout channel for updates, tips, and exclusive offers.</p>
+                <a href="https://t.me/+s98N6Mh9_WRlZGY1" target="_blank" class="channel-btn">
+                    <i class="fab fa-telegram"></i> JOIN TELEGRAM
+                </a>
+            </div>
+            
+            <div class="channel-box">
+                <div class="channel-title">DELTA FORCE CHANNEL</div>
+                <p>Join our Delta Force channel for updates, tips, and exclusive offers.</p>
+                <a href="https://t.me/+s98N6Mh9_WRlZGY1" target="_blank" class="channel-btn">
+                    <i class="fab fa-telegram"></i> JOIN TELEGRAM
+                </a>
+            </div>
+            
+            <div class="channel-box">
+                <div class="channel-title">CROSS FIRE CHANNEL</div>
+                <p>Join our Cross Fire channel for updates, tips, and exclusive offers.</p>
+                <a href="https://t.me/+vE9uOXmy4vkyN2Vl" target="_blank" class="channel-btn">
+                    <i class="fab fa-telegram"></i> JOIN TELEGRAM
+                </a>
+            </div>
+            
+            <div class="channel-box">
+                <div class="channel-title">CALL OF DUTY CHANNEL</div>
+                <p>Join our Call of Duty channel for updates, tips, and exclusive offers.</p>
+                <a href="https://t.me/+sxqiyrH3hMgzMTk1" target="_blank" class="channel-btn">
+                    <i class="fab fa-telegram"></i> JOIN TELEGRAM
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>RX GAME SHOPS &copy; 2023 | Premium Game Keys & Accounts</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Contact: hasibulmahir@gmail.com | Telegram: @Nenorx</p>
+    </footer>
+
+    <script>
+        // Create crystal animation
+        function createCrystals() {
+            const container = document.getElementById('crystalContainer');
+            const crystalCount = 25;
+            
+            for (let i = 0; i < crystalCount; i++) {
+                const crystal = document.createElement('div');
+                crystal.className = 'crystal';
+                
+                // Random properties
+                const size = Math.random() * 15 + 10;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 10 + 10;
+                const animationDelay = Math.random() * 5;
+                const opacity = Math.random() * 0.5 + 0.3;
+                
+                crystal.style.width = `${size}px`;
+                crystal.style.height = `${size}px`;
+                crystal.style.left = `${left}%`;
+                crystal.style.animationDuration = `${animationDuration}s`;
+                crystal.style.animationDelay = `${animationDelay}s`;
+                crystal.style.opacity = opacity;
+                
+                container.appendChild(crystal);
+            }
+        }
+        
+        // Global variables to track current selection
+        let currentGame = '';
+        let currentPlatform = 'android';
+        let currentValidity = '';
+        let currentPrice = 0;
+        
+        // Toggle game options when category box is clicked
+        function toggleGameOptions(gameId) {
+            // Set current game
+            currentGame = gameId;
+            
+            // Close all other game options
+            const allOptions = document.querySelectorAll('.game-options');
+            allOptions.forEach(option => {
+                option.style.display = 'none';
+            });
+            
+            // Hide all valid containers
+            const allValidContainers = document.querySelectorAll('.valid-container');
+            allValidContainers.forEach(container => {
+                container.classList.remove('show');
+            });
+            
+            // Hide payment methods
+            document.getElementById('payment-methods').style.display = 'none';
+            
+            // Show selected game options
+            const selectedOptions = document.getElementById(`${gameId}-options`);
+            if (selectedOptions.style.display === 'block') {
+                selectedOptions.style.display = 'none';
+            } else {
+                selectedOptions.style.display = 'block';
+            }
+        }
+        
+        // Select platform (Android/iOS)
+        function selectPlatform(gameId, platform) {
+            currentPlatform = platform;
+            
+            // Update platform buttons
+            const platformBtns = document.querySelectorAll(`#${gameId}-options .platform-btn`);
+            platformBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide platform-specific pricing
+            if (gameId === 'cross-fire') {
+                document.getElementById('cross-fire-android').style.display = platform === 'android' ? 'block' : 'none';
+                document.getElementById('cross-fire-ios').style.display = platform === 'ios' ? 'block' : 'none';
+                
+                // Hide any visible valid containers
+                document.getElementById('cross-fire-android-valid').classList.remove('show');
+                document.getElementById('cross-fire-ios-valid').classList.remove('show');
+            } else if (gameId === 'cod-mobile') {
+                document.getElementById('cod-mobile-android').style.display = platform === 'android' ? 'block' : 'none';
+                document.getElementById('cod-mobile-ios').style.display = platform === 'ios' ? 'block' : 'none';
+                
+                // Hide any visible valid containers
+                document.getElementById('cod-mobile-android-valid').classList.remove('show');
+                document.getElementById('cod-mobile-ios-valid').classList.remove('show');
+            }
+            
+            // Reset validity selection when platform changes
+            const validityOptions = document.querySelectorAll(`#${gameId}-options .validity-option`);
+            validityOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+        
+        // Select validity option
+        function selectValidity(element, gameId) {
+            // Get validity and price from data attributes
+            const validity = element.getAttribute('data-validity');
+            const price = element.getAttribute('data-price');
+            
+            // Update global variables
+            currentValidity = validity;
+            currentPrice = price;
+            
+            // Remove selected class from all validity options in this game section
+            const gameOptions = document.getElementById(`${gameId}-options`);
+            const validityOptions = gameOptions.querySelectorAll('.validity-option');
+            validityOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Determine which valid container to show based on game and platform
+            let validContainerId = '';
+            let validValueId = '';
+            let validPriceId = '';
+            
+            if (gameId === 'arena-breakout') {
+                validContainerId = 'arena-breakout-valid';
+                validValueId = 'arena-breakout-valid-value';
+                validPriceId = 'arena-breakout-valid-price';
+            } else if (gameId === 'delta-force') {
+                validContainerId = 'delta-force-valid';
+                validValueId = 'delta-force-valid-value';
+                validPriceId = 'delta-force-valid-price';
+            } else if (gameId === 'cross-fire') {
+                if (currentPlatform === 'android') {
+                    validContainerId = 'cross-fire-android-valid';
+                    validValueId = 'cross-fire-android-valid-value';
+                    validPriceId = 'cross-fire-android-valid-price';
+                } else {
+                    validContainerId = 'cross-fire-ios-valid';
+                    validValueId = 'cross-fire-ios-valid-value';
+                    validPriceId = 'cross-fire-ios-valid-price';
+                }
+            } else if (gameId === 'cross-fire-ios') {
+                validContainerId = 'cross-fire-ios-valid';
+                validValueId = 'cross-fire-ios-valid-value';
+                validPriceId = 'cross-fire-ios-valid-price';
+            } else if (gameId === 'cod-mobile') {
+                if (currentPlatform === 'android') {
+                    validContainerId = 'cod-mobile-android-valid';
+                    validValueId = 'cod-mobile-android-valid-value';
+                    validPriceId = 'cod-mobile-android-valid-price';
+                } else {
+                    validContainerId = 'cod-mobile-ios-valid';
+                    validValueId = 'cod-mobile-ios-valid-value';
+                    validPriceId = 'cod-mobile-ios-valid-price';
+                }
+            } else if (gameId === 'cod-mobile-ios') {
+                validContainerId = 'cod-mobile-ios-valid';
+                validValueId = 'cod-mobile-ios-valid-value';
+                validPriceId = 'cod-mobile-ios-valid-price';
+            }
+            
+            // Update and show the valid container
+            if (validContainerId) {
+                // Hide all valid containers first
+                const allValidContainers = document.querySelectorAll('.valid-container');
+                allValidContainers.forEach(container => {
+                    container.classList.remove('show');
+                });
+                
+                // Update values
+                document.getElementById(validValueId).textContent = validity;
+                document.getElementById(validPriceId).textContent = price;
+                
+                // Show the container
+                document.getElementById(validContainerId).classList.add('show');
+            }
+        }
+        
+        // Show payment methods
+        function showPaymentMethods(gameName) {
+            // Check if validity is selected
+            if (!currentValidity) {
+                alert('Please select a validity option first!');
+                return;
+            }
+            
+            // Hide all game options
+            const allOptions = document.querySelectorAll('.game-options');
+            allOptions.forEach(option => {
+                option.style.display = 'none';
+            });
+            
+            // Show payment methods
+            document.getElementById('payment-methods').style.display = 'block';
+            
+            // Scroll to payment methods
+            document.getElementById('payment-methods').scrollIntoView({ behavior: 'smooth' });
+            
+            // Update payment amount fields with current price
+            const amountFields = document.querySelectorAll('input[id$="-amount"]');
+            amountFields.forEach(field => {
+                field.value = currentPrice;
+            });
+            
+            console.log(`Selected game: ${gameName}, Validity: ${currentValidity}, Price: $${currentPrice}`);
+        }
+        
+        // Copy text to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show feedback
+                const originalText = event.target.innerHTML;
+                event.target.innerHTML = 'COPIED!';
+                event.target.style.backgroundColor = '#00ff00';
+                event.target.style.color = '#000';
+                
+                setTimeout(() => {
+                    event.target.innerHTML = originalText;
+                    event.target.style.backgroundColor = '';
+                    event.target.style.color = '';
+                }, 2000);
+            });
+        }
+        
+        // Submit payment details
+        function submitPayment(paymentMethod) {
+            // Get amount and order ID based on payment method
+            let amount, orderId;
+            
+            switch(paymentMethod) {
+                case 'PayPal':
+                    amount = document.getElementById('paypal-amount').value;
+                    orderId = document.getElementById('paypal-order-id').value;
+                    break;
+                case 'Binance':
+                    amount = document.getElementById('binance-amount').value;
+                    orderId = document.getElementById('binance-order-id').value;
+                    break;
+                case 'Tron':
+                    amount = document.getElementById('tron-amount').value;
+                    orderId = document.getElementById('tron-order-id').value;
+                    break;
+                case 'Ton':
+                    amount = document.getElementById('ton-amount').value;
+                    orderId = document.getElementById('ton-order-id').value;
+                    break;
+                case 'GiftCard':
+                    amount = document.getElementById('giftcard-code').value;
+                    orderId = document.getElementById('giftcard-order-id').value;
+                    break;
+            }
+            
+            // Validate inputs
+            if (!amount || !orderId) {
+                alert('Please fill in both amount and order ID!');
+                return;
+            }
+            
+            // Show success message
+            const successElement = document.getElementById(`${paymentMethod.toLowerCase()}-success`);
+            successElement.style.display = 'block';
+            
+            // Simulate redirect after 2 seconds
+            setTimeout(() => {
+                // Redirect to Telegram with order details
+                const message = `Payment Details:\nMethod: ${paymentMethod}\nAmount: ${amount}\nOrder ID: ${orderId}\nGame: ${currentGame}\nValidity: ${currentValidity}`;
+                const telegramUrl = `https://t.me/Nenorx?text=${encodeURIComponent(message)}`;
+                window.open(telegramUrl, '_blank');
+            }, 2000);
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            createCrystals();
+            
+            // Auto-select first validity option in each game
+            const firstValidityOptions = document.querySelectorAll('.validity-option');
+            if (firstValidityOptions.length > 0) {
+                firstValidityOptions.forEach(option => {
+                    // Check if this is the first option in its group
+                    const gameSection = option.closest('.game-options');
+                    if (gameSection) {
+                        const firstOption = gameSection.querySelector('.validity-option');
+                        if (firstOption === option) {
+                            option.classList.add('selected');
+                            
+                            // Trigger the validity selection
+                            const gameId = gameSection.id.replace('-options', '');
+                            selectValidity(option, gameId);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
